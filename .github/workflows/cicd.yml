@@ -139,5 +139,5 @@ jobs:
       with:
         context: .
         push: true
-        tags: yourdockerhubusername/python-cicd-app:latest
+        tags: harishz/python-cicd-app:latest
         file: ./Dockerfile
