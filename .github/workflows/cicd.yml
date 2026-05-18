@@ -3,6 +3,8 @@ name: CICD Pipeline
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - 'README.md'
 
 jobs:
 
