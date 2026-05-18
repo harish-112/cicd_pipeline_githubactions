@@ -141,3 +141,25 @@ jobs:
         push: true
         tags: ${{vars.DOCKERHUB_USERNAME}}/python-cicd-app:latest
         file: ./Dockerfile
+
+  deploy_to_docker:
+    runs-on: self-hosted
+    needs: build_docker_image_and_push
+
+    steps:
+
+    - name: Pull Docker Image
+      run: |
+        docker pull ${{vars.DOCKERHUB_USERNAME}}/python-cicd-app:latest
+
+    - name: Stop Existing Container
+      run: |
+        docker stop python-app-container || true
+        docker rm python-app-container || true
+
+    - name: Run Docker Container
+      run: |
+        docker run -d \
+          --name python-app-container \
+          -p 5000:5000 \
+          ${{vars.DOCKERHUB_USERNAME}}/python-cicd-app:latest
